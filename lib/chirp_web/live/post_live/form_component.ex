@@ -2,6 +2,12 @@ defmodule ChirpWeb.PostLive.FormComponent do
   use ChirpWeb, :live_component
 
   alias Chirp.Timeline
+  alias Chirp.TimeLine.Post
+
+  @impl true
+  def mount(socket) do
+    {:ok, allow_upload(socket, :photo, accept: ~w(.png .jpeg .jpg), max_entries: 2)}
+  end
 
   @impl true
   def update(%{post: post} = assigns, socket) do
@@ -25,6 +31,10 @@ defmodule ChirpWeb.PostLive.FormComponent do
 
   def handle_event("save", %{"post" => post_params}, socket) do
     save_post(socket, socket.assigns.action, post_params)
+  end
+
+  def handle_event("cancel-entry", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :photo, ref)}
   end
 
   defp save_post(socket, :edit, post_params) do

@@ -1,5 +1,7 @@
 <h1>Listing Posts</h1>
 
+<span><%= live_patch "New Post", to: Routes.post_index_path(@socket, :new), class: "button" %></span>
+
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, ChirpWeb.PostLive.FormComponent,
     id: @post.id || :new,
@@ -14,5 +16,3 @@
     <%= live_component @socket, ChirpWeb.PostLive.PostComponent, id: post.id, post: post %>
   <% end %>
 </div>
-
-<span><%= live_patch "New Post", to: Routes.post_index_path(@socket, :new), class: "button" %></span>

@@ -15,6 +15,11 @@ defmodule ChirpWeb.PostLive.PostComponent do
             <b>@<%= @post.username %></b>
             <br/>
             <%= @post.body %>
+            <div class="column">
+              <%= for url <- @post.photo_urls do %>
+                <img src="<%= url %>" height="150" />
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

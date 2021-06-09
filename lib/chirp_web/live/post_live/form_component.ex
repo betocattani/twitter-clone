@@ -38,7 +38,6 @@ defmodule ChirpWeb.PostLive.FormComponent do
   end
 
   defp save_post(socket, :edit, post_params) do
-    post = put_photo_urls(socket, socket.assigns.post)
     case Timeline.update_post(socket.assigns.post, post_params, &consume_photos(socket, &1)) do
       {:ok, _post} ->
         {:noreply,
